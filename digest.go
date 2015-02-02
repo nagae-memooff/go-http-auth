@@ -125,15 +125,15 @@ func (da *DigestAuth) CheckAuth(r *http.Request) (username string, authinfo *str
 	}
 
 	// Check if the requested URI matches auth header
-	switch u, err := url.Parse(auth["uri"]); {
+	switch _, err := url.Parse(auth["uri"]); {
 	case err != nil:
 		return
 	case r.URL == nil:
 		return
-	case len(u.Path) > len(r.URL.Path):
-		return
-	case !strings.HasPrefix(r.URL.Path, u.Path):
-		return
+//   case len(u.Path) > len(r.URL.Path):
+//     return
+//   case !strings.HasPrefix(r.URL.Path, u.Path):
+//     return
 	}
 
 	HA1 := da.Secrets(auth["username"], da.Realm)
